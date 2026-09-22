@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# URL Shortener
 
-## Getting Started
+A modern URL shortener built with Next.js, TypeScript, and MongoDB. It lets users generate short links, store them in a database, and redirect visitors from the shortened URL to the original destination.
 
-First, run the development server:
+## Features
+
+- Create short links from long URLs
+- Support custom short aliases
+- Redirect shortened URLs to their original destinations
+- MongoDB-backed persistence
+- Simple and clean UI built with Next.js and Tailwind CSS
+- Route-based redirect handling for shortened links
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- MongoDB
+- Tailwind CSS
+- Axios
+
+## Project Structure
+
+```bash
+.
+├── app/
+│   ├── api/
+│   │   └── generate/
+│   │       └── route.ts
+│   ├── generate/
+│   │   └── page.tsx
+│   ├── [url]/
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/
+├── lib/
+│   └── mongodb.ts
+├── public/
+├── .env.local
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+├── postcss.config.mjs
+├── eslint.config.mjs
+└── README.md
+```
+
+## How It Works
+
+1. The user enters a long URL and a preferred short alias on the generate page.
+2. The app sends a POST request to the API route at `/api/generate`.
+3. The API validates the input and stores the mapping in MongoDB.
+4. A shortened route like `/your-short-code` is resolved in the dynamic route file.
+5. If the short code exists, the app redirects the user to the original URL.
+
+## Environment Variables
+
+Create a `.env.local` file in the project root and add the following variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+NEXT_PUBLIC_HOST=http://localhost:3000
+```
+
+- `MONGODB_URI` connects the app to your MongoDB database.
+- `NEXT_PUBLIC_HOST` is used for generating frontend URLs and redirect fallback behavior.
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone <your-repository-url>
+cd url-shortner
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up your environment variables in `.env.local`.
+
+4. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open the app in your browser:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is a simple full-stack URL shortening app designed for learning and small-scale use. The MongoDB connection is configured in the app's server-side utility and the redirect logic is handled through dynamic route parameters.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is available for educational and personal use. Add your own license if you plan to publish it.
