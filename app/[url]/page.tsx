@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import clientPromise from "../lib/mongodb";
 
 type Props = {
   params: Promise<{
@@ -14,11 +13,7 @@ export default async function Page({ params }: Props) {
     url: string;
     shorturl: string;
   };
-
-  const client = await clientPromise;
-  const db = client.db("url-shortner");
-  const collection = db.collection<UrlCollection>("urls");
-
+  
   const doc = await collection.findOne({
     shorturl: shortUrl,
   });

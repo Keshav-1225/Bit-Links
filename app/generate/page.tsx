@@ -2,16 +2,23 @@
 import { useState } from 'react'
 import axios from 'axios';
 import Link from 'next/link';
+import { urlType } from '@/types/urlType';
+
+
 const page = () => {
   const [url, setUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [generated, setGenerated] = useState<boolean | string>(false);
 
+  const url_list: urlType[] = []
   function generate_url() {
-    let data = JSON.stringify({
+    let data = {
       "url": url,
       "shorturl": shortUrl
-    });
+    };
+    url_list.push(data)
+
+    localStorage.setItem("data",JSON.stringify(url_list))
 
     let config = {
       method: 'post',
@@ -20,7 +27,7 @@ const page = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      data: data
+      data: JSON.stringify(data)
     };
 
     axios.request(config)
@@ -56,6 +63,12 @@ const page = () => {
           {!generated && 'Your url will appear here!'}
           {generated && <Link target='_blank' href={url as string}>{generated}</Link>}
         </div>
+      <div className='w-full font-bold justify-center flex text-3xl'>Your Urls</div>
+      <div>
+        {
+
+        }
+      </div>
       </div>
     </div>
   )
