@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getUrlByShortUrl } from "@/controllers/urlController";
 
 type Props = {
   params: Promise<{
@@ -9,14 +10,7 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { url: shortUrl } = await params;
 
-  type UrlCollection = {
-    url: string;
-    shorturl: string;
-  };
-  
-  const doc = await collection.findOne({
-    shorturl: shortUrl,
-  });
+  const doc = await getUrlByShortUrl(shortUrl);
 
   if (doc) {
     redirect(doc.url);

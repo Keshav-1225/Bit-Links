@@ -5,6 +5,7 @@ A modern URL shortener built with Next.js, TypeScript, and MongoDB. It lets user
 ## Features
 
 - Create short links from long URLs
+- List, edit, and delete saved short links
 - Support custom short aliases
 - Redirect shortened URLs to their original destinations
 - MongoDB-backed persistence
@@ -53,19 +54,28 @@ A modern URL shortener built with Next.js, TypeScript, and MongoDB. It lets user
 1. The user enters a long URL and a preferred short alias on the generate page.
 2. The app sends a POST request to the API route at `/api/generate`.
 3. The API validates the input and stores the mapping in MongoDB.
-4. A shortened route like `/your-short-code` is resolved in the dynamic route file.
-5. If the short code exists, the app redirects the user to the original URL.
+4. Saved links can be updated or deleted with `PUT` and `DELETE` requests to `/api/generate/:id`.
+5. A shortened route like `/your-short-code` is resolved in the dynamic route file.
+6. If the short code exists, the app redirects the user to the original URL.
+
+## CRUD API
+
+- `GET /api/generate` — list all short links
+- `GET /api/generate/:id` — read one short link
+- `POST /api/generate` — create a short link with `url` and `shorturl`
+- `PUT /api/generate/:id` — update a short link
+- `DELETE /api/generate/:id` — delete a short link
 
 ## Environment Variables
 
 Create a `.env.local` file in the project root and add the following variables:
 
 ```env
-MONGODB_URI=your_mongodb_connection_string
+DB_URI=your_mongodb_connection_string
 NEXT_PUBLIC_HOST=http://localhost:3000
 ```
 
-- `MONGODB_URI` connects the app to your MongoDB database.
+- `DB_URI` connects the app to your MongoDB database.
 - `NEXT_PUBLIC_HOST` is used for generating frontend URLs and redirect fallback behavior.
 
 ## Installation

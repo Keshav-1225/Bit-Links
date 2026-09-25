@@ -1,4 +1,4 @@
 export type urlType = {
-  url: String,
-  shorturl: String
+  url: string;
+  shorturl: string;
 }

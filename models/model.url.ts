@@ -1,4 +1,4 @@
-import mongoose,{Schema, Document} from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface Iurl extends Document
 {
@@ -14,11 +14,14 @@ const urlSchema = new Schema<Iurl>(
         },
         shorturl:{
             type: String,
-            required: true
+            required: true,
+            unique: true,
+            trim: true
         }
-    }
+    },
+    { timestamps: true }
 )
 
-const Url = mongoose.models.urlSchema || mongoose.model<Iurl>("Url", urlSchema)
+const Url = mongoose.models.Url || mongoose.model<Iurl>("Url", urlSchema)
 
 export default Url
